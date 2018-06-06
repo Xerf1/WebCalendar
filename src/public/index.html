@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-app="jetbrains" ng-controller="AppCtrl as app" data-ng-init="app.flexUp(0)">
+<link href="https://fonts.googleapis.com/css?family=Dawning+of+a+New+Day" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Dancing+Script|Josefin+Sans|Italianno|Kaushan+Script|Lobster|Pacifico" rel="stylesheet">
+
+<!--NAVIGATION BAR-->
+<div id="navBar">
+    <button id='upperLeftButton' class="button" ng-click="app.saveProduct(app.newProduct)"></button>
+    <!--<button id='menuButton' class="button" ng-click="app.deleteProduct(app.newProduct)"></button>-->
+    <button id='menuButton' class="button" ng-click="app.showMenu()"></button>
+</div>
+
+<!--CALENDAR CONTENT-->
+<div id="content">
+    <div class="day" id="day1" style="flex: 1" ng-click="app.flexUp('1')">
+        <div class="date" id="date1"></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+    </div>
+    <div class="day" id="day2" style="flex: 1" ng-click="app.flexUp('2')">
+        <div class="date" id="date2"></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+    </div>
+    <div class="day" id="day3" style="flex: 1" ng-click="app.flexUp('3')">
+        <div class="date" id="date3"></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+    </div>
+    <div class="day" id="day4" style="flex: 1" ng-click="app.flexUp('4')">
+        <div class="date" id="date4"></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+    </div>
+    <div class="day" id="day5" style="flex: 1" ng-click="app.flexUp('5')">
+        <div class="date" id="date5"></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+    </div>
+    <div class="day" id="day6" style="flex: 1" ng-click="app.flexUp('6')">
+        <div class="date" id="date6"></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+    </div>
+    <div class="day" id="day7" style="flex: 1" ng-click="app.flexUp('7')">
+        <div class="date" id="date7"></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+    </div>
+
+    <!--<ul>
+        <li ng-repeat="product in app.products">
+            {{product.name}}
+        </li>
+    </ul>-->
+
+</div>
+
+<!--MENU-->
+<div id="menu">
+
+    <!--<input type="text" ng-model="app.newProduct"/>-->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link>
+<script src="bower_components/angular/angular.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

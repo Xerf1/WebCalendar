@@ -1,0 +1,23 @@
+{
+  "name": "webcalendar",
+  "version": "1.0.0",
+  "description": "A web calendar by Alexander Marstaller and Paul Flachbart",
+  "main": "server.js",
+  "dependencies": {
+    "bower": "^1.8.4",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "gulp": "^3.9.1",
+    "mongoose": "^5.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "gulp-imagemin": "^4.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

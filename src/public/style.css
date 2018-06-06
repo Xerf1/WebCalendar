@@ -1,0 +1,130 @@
+
+#navBar{
+    width: 100%;
+    height: 100px;
+    background: #474c4f;
+    padding: inherit;
+    margin: inherit;
+    border: inherit;
+}
+#menu{
+    position: fixed;
+    right: 10px;
+    width: 16.6%;
+    height: 100%;
+    background: #34393a;
+}
+
+#content{
+    /*flex-direction: row;*/
+    flex-direction: column-reverse;
+    display: flex;
+    position: fixed;
+    top:110px;
+    right: calc(16.6% + 20px);
+    bottom: 10px;
+    left:10px;
+    background: #67757f;
+    padding: 50px;
+    margin: inherit;
+    border: inherit;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#upperLeftButton{
+
+    position: fixed;
+    height: 80px;
+    width:80px;
+    top: 10px;
+    left: 10px;
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+}
+#menuButton{
+
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    width: 16.6%;
+    height: 80px;
+    padding: inherit;
+    border: inherit;
+    margin: inherit;
+
+}
+.button{
+    background: #2e3334;
+}
+.button:hover{
+    background: #efe7c1;
+}
+.button:active{
+    background: #dca630;
+}
+
+.day{
+    background: whitesmoke;
+    width: 13%;
+    height: 100%;
+    margin: 10px;
+}
+.day:hover{
+    background: #efe7c1;
+}
+
+.date{
+    text-align: center;
+    padding-top:1vw;
+    background: #4b5052;
+    color: #8abcdb;
+    height: 3vw;
+    font-family: 'Josefin Sans', sans-serif;
+    /*font-family: 'Fredericka the Great', cursive;*/
+    /*font-family: 'Dawning of a New Day', cursive;*/
+    transition: font-size 100ms linear;
+    /*font-weight: bolder;*/
+}
+@media screen and (min-width: 901px) {
+    .date {
+        font-size: 30px;
+    }
+}
+@media screen and (max-width: 900px) {
+    .date {
+        font-size: 2vw;
+    }
+}
+
+.addEntry{
+    position: absolute;
+    right: 15px;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    padding-bottom: 10px;
+    border: inherit;
+    margin: inherit;
+    border-radius: 50%;
+    color: #8288a3;
+    font-size: 50px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.entryContainer{
+    position: relative;
+    width:100%;
+    height: calc(100% - 50px);
+}
+
+button:focus {outline:0;}
+body{
+    min-width:600px;
+    background:#67757f;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
