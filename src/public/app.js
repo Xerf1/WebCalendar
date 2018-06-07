@@ -10,7 +10,7 @@ jetbrains.controller('AppCtrl', function ($http) {
     var url ='http://localhost:3000';
 
     app.flexUp = function (id) {
-        var content = document.getElementById('content')
+        var content = document.getElementById('content');
         var height = window.screen.height;
         var width = window.screen.width;
         var wHeight = window.innerHeight;
@@ -158,6 +158,22 @@ jetbrains.controller('AppCtrl', function ($http) {
             menu.style.height = 0;
             content.style.right = '30px';
         }
+
+    };
+
+    app.showAccMenu = function () {
+        var accMenu = document.getElementById('accMenu');
+        var content = document.getElementById('content');
+        if(accMenu.style.height === '0px') {
+            accMenu.style.height = '100%';
+            content.style.left = 'calc(16.6% + 0px)';
+        }else{
+            accMenu.style.height = 0;
+            content.style.left = '30px';
+        }
+    };
+
+    app.logout = function(){
 
     };
 

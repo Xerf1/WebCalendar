@@ -15,6 +15,13 @@
     background: #34393a;
 }
 
+#accMenu{
+    position: fixed;
+    width: 16.6%;
+    height: 100%;
+    background: #34393a;
+}
+
 #content{
     /*flex-direction: row;*/
     flex-direction: column-reverse;
@@ -23,7 +30,7 @@
     top:110px;
     right: calc(16.6% + 20px);
     bottom: 10px;
-    left:10px;
+    left: calc(16.6% + 20px);
     background: #67757f;
     padding: 50px;
     margin: inherit;
@@ -43,6 +50,7 @@
     border-radius: 50%;
     padding: 0;
 }
+
 #menuButton{
 
     position: fixed;
