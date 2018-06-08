@@ -4,6 +4,7 @@
     <option name="serverConfigurations">
       <list>
         <ServerConfiguration>
+          <option name="connectOnIdeStartup" value="true" />
           <option name="label" value="Calender" />
           <option name="serverUrls">
             <list>
@@ -13,6 +14,7 @@
           <option name="sshTunnelingConfiguration">
             <SshTunnelingConfiguration />
           </option>
+          <option name="userDatabase" value="Calender" />
         </ServerConfiguration>
       </list>
     </option>

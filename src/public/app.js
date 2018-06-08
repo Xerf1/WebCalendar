@@ -44,6 +44,10 @@ jetbrains.controller('AppCtrl', function ($http) {
 
     app.flexUp = function (id) {
         renderEntries(id);
+        wD = startPicker.getDate().getDay()-1;
+        if(wD < 0){wD = 6;}
+        weekDates = [getSomeDate(-wD),getSomeDate(-wD+1),getSomeDate(-wD+2),getSomeDate(-wD+3),getSomeDate(-wD+4),getSomeDate(-wD+5),getSomeDate(-wD+6)];
+
         var content = document.getElementById('content');
         var height = window.screen.height;
         var width = window.screen.width;
@@ -224,33 +228,6 @@ jetbrains.controller('AppCtrl', function ($http) {
 
 
     app.showAddEntryContainer = function (id) {
-
-
-        new Picker(document.getElementById('entryST'), {
-            format: 'HH:mm',
-            date: '00:00',
-
-        });
-        var sP = new Picker(document.getElementById('entrySD'), {
-            format: 'DD.MM.YYYY',
-            date: weekDates[id-1],
-
-        });
-        new Picker(document.getElementById('entryET'), {
-            format: 'HH:mm',
-            date: '00:00',
-
-        });
-        var eP = new Picker(document.getElementById('entryED'), {
-            format: 'DD.MM.YYYY',
-            date: weekDates[id-1],
-
-        });
-
-        app.newEntryStartTime = '00:00';
-        app.newEntryStartDay = sP.getDate(true);
-        app.newEntryEndTime = '00:00';
-        app.newEntryEndDay = sP.getDate(true);
         var days = document.getElementsByClassName('day');
         var j;
         for (j = 0; j < days.length; j++){     //iterating through buttons
@@ -260,6 +237,35 @@ jetbrains.controller('AppCtrl', function ($http) {
         var container = document.getElementById('addEntryContainer');
         container.style.visibility = 'visible';
         container.style.opacity = 1;
+
+
+        var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
+        var date1 = weekDates[id-1].toLocaleDateString('de-DE', options);
+
+        new Picker(document.getElementById('entryST'), {
+            format: 'HH:mm',
+            date: '00:00'
+
+        });
+        new Picker(document.getElementById('entryET'), {
+            format: 'HH:mm',
+            date: '00:00'
+
+        });
+        new Picker(document.getElementById('entrySD'), {
+            format: 'DD.MM.YYYY',
+            date: date1
+        });
+        new Picker(document.getElementById('entryED'), {
+            format: 'DD.MM.YYYY',
+            date: date1
+        });
+        app.newEntryStartTime = '00:00';
+        app.newEntryStartDay = date1;
+        app.newEntryEndTime = '00:00';
+        app.newEntryEndDay = date1;
+
     };
 
     app.closeAddEntryContainer = function () {
@@ -309,6 +315,10 @@ jetbrains.controller('AppCtrl', function ($http) {
 
 
         var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
+        wD = startPicker.getDate().getDay()-1;
+        if(wD < 0){wD = 6;}
+        weekDates = [getSomeDate(-wD),getSomeDate(-wD+1),getSomeDate(-wD+2),getSomeDate(-wD+3),getSomeDate(-wD+4),getSomeDate(-wD+5),getSomeDate(-wD+6)];
 
         var date1 = weekDates[0].toLocaleDateString('de-DE', options);
         var date2 = weekDates[1].toLocaleDateString('de-DE', options);
