@@ -24,11 +24,19 @@ var entrySchema = new Schema({
         type: ObjectId,
         required: true
     },
-    StartDateTime: {
+    StartTime: {
         type: String,
         required: true
     },
-    EndDateTime: {
+    StartDay: {
+        type: String,
+        required: true
+    },
+    EndTime: {
+        type: String,
+        required: true
+    },
+    EndDay: {
         type: String,
         required: true
     },
@@ -49,8 +57,8 @@ var categoryID = mongoose.Types.ObjectId();
 
 
 
-app.get('/', function (req,res){
-    Entry.find(function (err, entries){
+app.post('/', function (req,res){
+    Entry.find({StartDay:req.body.startDay}, function (err, entries){
         res.send(entries);
     });
 });
@@ -61,13 +69,16 @@ app.post('/add', function (req, res) {
         Title:req.body.title,
         Description:req.body.description,
         EntryID: mongoose.Types.ObjectId(),
-        StartDateTime:req.body.startDateTime,
-        EndDateTime:req.body.endDateTime,
+        StartTime:req.body.startTime,
+        StartDay:req.body.startDay,
+        EndTime:req.body.endTime,
+        EndDay:req.body.endDay,
         CategoryID:categoryID,
         UserID:userID
     });
-    emtry.save(function (err) {
+    entry.save(function (err) {
         if(err){
+            console.log(err);
             console.log(req.body);
         }else {
             res.send();

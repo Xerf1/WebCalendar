@@ -35,7 +35,7 @@
         <label id="entrySTLabel" class="entryItems" for="entryST">Start Time</label>
         <label id="entryETLabel" class="entryItems" for="entryET">End Time</label>
         <label id="entryDescLabel" class="entryItems" for="entryDesc">Description</label>
-        <i id="saveEntry" class="material-icons" ng-click="app.addEntry(app.newEntryTitle,app.newEntryStartTime,app.newEntryEndTime,app.newEntryDesc)">done_outline</i>
+        <i id="saveEntry" class="material-icons" ng-click="app.addEntry(app.newEntryTitle,app.newEntryStartTime,app.newEntryStartDay,app.newEntryEndTime,app.newEntryEndDay,app.newEntryDesc)">done_outline</i>
     </div>
 
 
@@ -45,7 +45,7 @@
         <div class="entryContainer">
             <button class="addEntry" ng-click="app.showAddEntryContainer(1)">+</button>
             <ul>
-                <li ng-repeat="entry in app.entries">
+                <li ng-repeat="entry in app.entries1">
                     {{entry.Title}}
                 </li>
             </ul>
@@ -53,27 +53,69 @@
     </div>
     <div class="day" id="day2" style="flex: 1" ng-click="app.flexUp('2')">
         <div class="date" id="date2"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(2)">+</button></div>
+        <div class="entryContainer">
+            <button class="addEntry" ng-click="app.showAddEntryContainer(2)">+</button>
+            <ul>
+                <li ng-repeat="entry in app.entries2">
+                    {{entry.Title}}
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="day" id="day3" style="flex: 1" ng-click="app.flexUp('3')">
         <div class="date" id="date3"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(3)">+</button></div>
+        <div class="entryContainer">
+            <button class="addEntry" ng-click="app.showAddEntryContainer(3)">+</button>
+            <ul>
+                <li ng-repeat="entry in app.entries3">
+                    {{entry.Title}}
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="day" id="day4" style="flex: 1" ng-click="app.flexUp('4')">
         <div class="date" id="date4"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(4)">+</button></div>
+        <div class="entryContainer">
+            <button class="addEntry" ng-click="app.showAddEntryContainer(4)">+</button>
+            <ul>
+                <li ng-repeat="entry in app.entries4">
+                    {{entry.Title}}
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="day" id="day5" style="flex: 1" ng-click="app.flexUp('5')">
         <div class="date" id="date5"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(5)">+</button></div>
+        <div class="entryContainer">
+            <button class="addEntry" ng-click="app.showAddEntryContainer(5)">+</button>
+            <ul>
+                <li ng-repeat="entry in app.entries5">
+                    {{entry.Title}}
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="day" id="day6" style="flex: 1" ng-click="app.flexUp('6')">
         <div class="date" id="date6"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(6)">+</button></div>
+        <div class="entryContainer">
+            <button class="addEntry" ng-click="app.showAddEntryContainer(6)">+</button>
+            <ul>
+                <li ng-repeat="entry in app.entries6">
+                    {{entry.Title}}
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="day" id="day7" style="flex: 1" ng-click="app.flexUp('7')">
         <div class="date" id="date7"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(7)">+</button></div>
+        <div class="entryContainer">
+            <button class="addEntry" ng-click="app.showAddEntryContainer(7)">+</button>
+            <ul>
+                <li ng-repeat="entry in app.entries7">
+                    {{entry.Title}}
+                </li>
+            </ul>
+        </div>
     </div>
 
 
