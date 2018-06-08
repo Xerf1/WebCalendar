@@ -21,7 +21,10 @@ jetbrains.controller('AppCtrl', function ($http) {
         app.flexUp(0);
         startPicker.pick();
         app.startDay = months[(currentDate.getMonth())].substr(0,3) + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear();
+
     };
+
+    var weekDates = [getSomeDate(0),getSomeDate(1),getSomeDate(2),getSomeDate(3),getSomeDate(4),getSomeDate(5),getSomeDate(6)];
 
     app.flexUp = function (id) {
 
@@ -37,31 +40,14 @@ jetbrains.controller('AppCtrl', function ($http) {
             content.style.flexDirection = 'row';
         }
         //vars for Labels
-        var currentDate = new Date();
-        var d = currentDate.getDate();
-        var w = currentDate.getDay();
-        var y = currentDate.getFullYear();
-        var weekDayDiff = w - id;
-        var theDate = getSomeDate(-weekDayDiff);
-        var d1 = theDate.getDate();
-        var w1 = theDate.getDay();
-        var m1 = theDate.getMonth(); //Be careful! January is 0 not 1
-        var dayOfMonth = d - weekDayDiff + 'th ';
-        if (d===1 || d===21 || d===31 ){
-            dayOfMonth = d - weekDayDiff + 'st ';
-        }
-        if (d===2 || d===22){
-            dayOfMonth = d - weekDayDiff + 'nd ';
-        }
-        if (d===3 || d===23 || d===33 ){
-            dayOfMonth = d - weekDayDiff + 'st ';
-        }
-
         var i;
-
         var e = document.getElementsByClassName('day');
         var addEntryButtons = document.getElementsByClassName('addEntry');
         var dates = document.getElementsByClassName('date');
+        var wD = startPicker.getDate().getDay()-1;
+        if(wD < 0){wD = 6;}
+
+
         if(id !== 0) {
             var label = document.getElementById('date'+id);
             var element = document.getElementById('day' + id);
@@ -69,21 +55,19 @@ jetbrains.controller('AppCtrl', function ($http) {
                 if((height > (1.5 * width))||(wHeight > (1.5 * wWidth))) {
                     e[i].style.width = '100%';
                     e[i].style.height = 'auto';
-
                     dates[i].style.flex = 1;
                     dates[i].style.paddingTop = '2vw';
                     dates[i].style.height = '4vw';
                     dates[i].style.fontSize = '3vw';
-                    dates[i].innerHTML = weekday[getSomeDate(i-w+1).getDay()].substr(0,1);
+                    dates[i].innerHTML = weekday[getSomeDate(-wD + i).getDay()].substr(0,1);
                 }else{
                     e[i].style.width = '13%';
                     e[i].style.height = '100%';
-
                     dates[i].style.flex = 1;
                     dates[i].style.paddingTop = '1vw';
                     dates[i].style.height = '3vw';
                     dates[i].style.fontSize = '2vw';
-                    dates[i].innerHTML = weekday[getSomeDate(i-w+1).getDay()].substr(0,1);
+                    dates[i].innerHTML = weekday[getSomeDate(-wD + i).getDay()].substr(0,1);
                 }
                 e[i].style.flex = 1;
                 var j;
@@ -96,6 +80,17 @@ jetbrains.controller('AppCtrl', function ($http) {
                 }
             }
 
+            var dayOfMonth = weekDates[id-1].getDate()+ 'th ';
+            if (weekDates[id-1].getDate()===1 || weekDates[id-1].getDate()===21 || weekDates[id-1].getDate()===31 ){
+                dayOfMonth = weekDates[id-1].getDate()+ 'st ';
+            }
+            if (weekDates[id-1].getDate()===2 || weekDates[id-1].getDate()===22){
+                dayOfMonth = weekDates[id-1].getDate()+ 'nd ';
+            }
+            if (weekDates[id-1].getDate()===3 || weekDates[id-1].getDate()===23){
+                dayOfMonth = weekDates[id-1].getDate()+ 'rd ';
+            }
+
             element.style.flex = 10;
             label.style.flex = 10;
             if((height > (1.5 * width))||(wHeight > (1.5 * wWidth))) {
@@ -103,24 +98,24 @@ jetbrains.controller('AppCtrl', function ($http) {
                     label.style.paddingTop = '2vw';
                     label.style.height = '4vw';
                     label.style.fontSize = '3vw';
-                    label.innerHTML = weekday[w1] + ' , ' + d1 + '.' + (m1+1) + '.' + y;
+                    label.innerHTML =  weekday[weekDates[id-1].getDay()] + ' , ' + weekDates[id-1].getDate() + '.' + (weekDates[id-1].getMonth()+1) + '.' + weekDates[id-1].getFullYear();
                 }else{
                     label.style.paddingTop = '2vw';
                     label.style.height = '4vw';
                     label.style.fontSize = '3vw';
-                    label.innerHTML = weekday[w1] + ' the ' + dayOfMonth + 'of ' + months[m1] + ', ' + y;
+                    label.innerHTML = weekday[weekDates[id-1].getDay()] + ' the ' + dayOfMonth + 'of ' + months[weekDates[id-1].getMonth()] + ', ' + weekDates[id-1].getFullYear();
                 }
             }else{
                 if(label.offsetWidth < 500) {
                     label.style.paddingTop = '1vw';
                     label.style.height = '3vw';
                     label.style.fontSize = '2vw';
-                    label.innerHTML = weekday[w1] + ' , ' + d1 + '.' + (m1+1) + '.' + y;
+                    label.innerHTML =  weekday[weekDates[id-1].getDay()] + ' , ' + weekDates[id-1].getDate() + '.' + (weekDates[id-1].getMonth()+1) + '.' + weekDates[id-1].getFullYear();
                 }else{
                     label.style.paddingTop = '1vw';
                     label.style.height = '3vw';
                     label.style.fontSize = '2vw';
-                    label.innerHTML = weekday[w1] + ' the ' + dayOfMonth + 'of ' + months[m1] + ', ' + y;
+                    label.innerHTML = weekday[weekDates[id-1].getDay()] + ' the ' + dayOfMonth + 'of ' + months[weekDates[id-1].getMonth()] + ', ' + weekDates[id-1].getFullYear();
                 }
             }
         }else{
@@ -146,25 +141,25 @@ jetbrains.controller('AppCtrl', function ($http) {
                 }
                 e[i].style.flex = 1;
                 dates[i].style.flex = 1;
-                dates[i].innerHTML = weekday[getSomeDate(i-w+1).getDay()].substr(0,1) + ', ' + (getSomeDate(i-2).getDate()) + '.' + (getSomeDate(i-2).getMonth()+1);
             }
             for (i = 0; i < e.length; i++) {
                 if (e[i].offsetWidth < 125) {
-                    dates[i].innerHTML = (getSomeDate(i - w+1).getDate()) + '.' + (getSomeDate(i - 2).getMonth() + 1);
+                    dates[i].innerHTML = (getSomeDate(-wD + i).getDate()) + '.' + (getSomeDate(-wD+i).getMonth() + 1);
                 } else {
-                    dates[i].innerHTML = weekday[getSomeDate(i - w+1).getDay()].substr(0, 1) + ', ' + (getSomeDate(i - 2).getDate()) + '.' + (getSomeDate(i - 2).getMonth() + 1);
+                    dates[i].innerHTML = weekday[getSomeDate(-wD + i).getDay()].substr(0, 1) + ', ' + (getSomeDate(-wD+i).getDate()) + '.' + (getSomeDate(-wD+i).getMonth()+1);
                 }
             }
         }
     };
 
-
     function setEndDate() {
-        console.log(getSomeDate2(0));
         var wD = startPicker.getDate().getDay()-1;
         if(wD < 0){wD = 6;}
-        console.log(wD);
-        app.endDay = months[(getSomeDate2(-wD).getMonth())].substr(0,3) + ' ' + getSomeDate2(-wD).getDate() + ', ' + getSomeDate2(-wD).getFullYear() + ' - ' + months[(getSomeDate2(-wD+6).getMonth())].substr(0,3) + ' ' + getSomeDate2(-wD+6).getDate() + ', ' + getSomeDate2(-wD+6).getFullYear();
+        app.endDay = months[(getSomeDate(-wD).getMonth())].substr(0,3) + ' ' + getSomeDate(-wD).getDate() + ', ' + getSomeDate(-wD).getFullYear() + ' - ' + months[(getSomeDate(-wD+6).getMonth())].substr(0,3) + ' ' + getSomeDate(-wD+6).getDate() + ', ' + getSomeDate(-wD+6).getFullYear();
+
+        weekDates = [getSomeDate(-wD),getSomeDate(-wD+1),getSomeDate(-wD+2),getSomeDate(-wD+3),getSomeDate(-wD+4),getSomeDate(-wD+5),getSomeDate(-wD+6)];
+        app.flexUp(0);
+
     }
 
     app.showMenu = function () {
@@ -181,8 +176,6 @@ jetbrains.controller('AppCtrl', function ($http) {
     };
 
     app.showAddEntryContainer = function (id) {
-
-        var currentDate = new Date();
 
 
         new Picker(document.getElementById('entryST'), {
@@ -258,10 +251,6 @@ jetbrains.controller('AppCtrl', function ($http) {
     };
 
     function getSomeDate(t){
-        return new Date(new Date().getTime() + t*(24 * 60 * 60 * 1000));
-    }
-
-    function getSomeDate2(t){
         return new Date(startPicker.getDate().getTime()+ t*(24 * 60 * 60 * 1000));
     }
 
