@@ -28,7 +28,7 @@ var port = 3000;
 app.use(cors());
 
 app.use(bodyParser.json());
-mongoose.connect('mongodb://localhost/jetbrains');
+
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 var entrySchema = new Schema({
