@@ -14,9 +14,10 @@
 
 <!--NAVIGATION BAR-->
 <div id="navBar">
+
+    <button id='upperLeftButton' class="button" ng-click="app.showAccMenu()"></button>
     <input id="startDay" value="07.06.2018" class="entryItems" type="text" ng-model="app.startDay">
     <input id="endDay" value="lol" class="entryItems" type="text" ng-model="app.endDay">
-    <button id='upperLeftButton' class="button" ng-click="app.saveProduct(app.newProduct)"></button>
     <!--<button id='menuButton' class="button" ng-click="app.deleteProduct(app.newProduct)"></button>-->
     <button id='menuButton' class="button" ng-click="app.showMenu()"></button>
 </div>
@@ -76,6 +77,11 @@
         <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(7)">+</button></div>
     </div>
 
+
+
+</div>
+
+<div id="accMenu" >
 
 
 </div>

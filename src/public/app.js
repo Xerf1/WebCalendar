@@ -27,8 +27,6 @@ jetbrains.controller('AppCtrl', function ($http) {
     var weekDates = [getSomeDate(0),getSomeDate(1),getSomeDate(2),getSomeDate(3),getSomeDate(4),getSomeDate(5),getSomeDate(6)];
 
     app.flexUp = function (id) {
-
-
         var content = document.getElementById('content');
         var height = window.screen.height;
         var width = window.screen.width;
@@ -175,6 +173,36 @@ jetbrains.controller('AppCtrl', function ($http) {
 
     };
 
+
+    app.showAccMenu = function () {
+        var accMenu = document.getElementById('accMenu');
+        var content = document.getElementById('content');
+        if(accMenu.style.height === '0px') {
+            accMenu.style.height = '100%';
+            content.style.left = 'calc(16.6% + 0px)';
+        }else{
+            accMenu.style.height = 0;
+            content.style.left = '30px';
+        }
+    };
+
+    app.registerUser = function(name, username, email, password){
+        $http({method: 'POST', url: url+'/users/register', data:{name: name, username: username, email: email,password: password }}).then( function success (res) {
+            console.log(res);
+        }, function error(err){
+            console.log(err);
+        });
+    };
+
+    app.loginUser = function(username, password){
+        $http({method: 'POST', url: url+'/users/authenticate', data:{username: username, password: password }}).then( function success (res) {
+            console.log(res);
+        }, function error(err){
+            console.log(err);
+        });
+    };
+
+
     app.showAddEntryContainer = function (id) {
 
 
@@ -236,7 +264,6 @@ jetbrains.controller('AppCtrl', function ($http) {
         container.style.visibility = 'hidden';
         container.style.opacity = 0;
     };
-
 
     app.saveProduct = function (newProduct) {
         $http({method: 'POST', url: url+'/add', data:{name:newProduct}}).then( function () {

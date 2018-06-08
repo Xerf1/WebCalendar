@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<h2 class="page-header">Register</h2>
+<body ng-app="jetbrains" ng-controller="AppCtrl as app">
+    <div id="registerContainer">
+        <div>
+        <label for="name" class="registerItems">Name:</label>
+        <input id="name" type="text" name="name" class="registerItems" ng-model="app.name">
+        </div>
+        <div>
+        <label for="username" class="registerItems">Username:</label>
+        <input id="username" type="text" name="username" class="registerItems" ng-model="app.username">
+        </div>
+        <div>
+        <label for="email" class="registerItems">Email:</label>
+        <input id="email" type="text" name="email" class="registerItems" ng-model="app.email">
+        </div>
+        <div>
+        <label for="password" class="registerItems">Password:</label>
+        <input id="password" type="password" name="password" class="registerItems" ng-model="app.password">
+        </div>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Submit" ng-click="app.registerUser(app.name, app.username, app.email, app.password)">
+    <input type="reset" class="btn btn-primary" value="Reset">
+</body>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="app.js"></script>
+</html>
