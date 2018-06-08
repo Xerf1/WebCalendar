@@ -8,7 +8,6 @@ var Picker = window.Picker;
 jetbrains.controller('AppCtrl', function ($http) {
     var app = this;
     var url ='http://localhost:3000';
-    var chosenDay;
     var currentDate = new Date();
     var startDay = document.getElementById('startDay');
     var startPicker = new Picker(startDay, {
@@ -23,10 +22,12 @@ jetbrains.controller('AppCtrl', function ($http) {
         app.startDay = months[(currentDate.getMonth())].substr(0,3) + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear();
 
     };
-
-    var weekDates = [getSomeDate(0),getSomeDate(1),getSomeDate(2),getSomeDate(3),getSomeDate(4),getSomeDate(5),getSomeDate(6)];
+    var wD = startPicker.getDate().getDay()-1;
+    if(wD < 0){wD = 6;}
+    var weekDates = [getSomeDate(-wD),getSomeDate(-wD+1),getSomeDate(-wD+2),getSomeDate(-wD+3),getSomeDate(-wD+4),getSomeDate(-wD+5),getSomeDate(-wD+6)];
 
     app.flexUp = function (id) {
+        renderEntries(id);
         var content = document.getElementById('content');
         var height = window.screen.height;
         var width = window.screen.width;
@@ -151,12 +152,15 @@ jetbrains.controller('AppCtrl', function ($http) {
     };
 
     function setEndDate() {
-        var wD = startPicker.getDate().getDay()-1;
-        if(wD < 0){wD = 6;}
         app.endDay = months[(getSomeDate(-wD).getMonth())].substr(0,3) + ' ' + getSomeDate(-wD).getDate() + ', ' + getSomeDate(-wD).getFullYear() + ' - ' + months[(getSomeDate(-wD+6).getMonth())].substr(0,3) + ' ' + getSomeDate(-wD+6).getDate() + ', ' + getSomeDate(-wD+6).getFullYear();
 
         weekDates = [getSomeDate(-wD),getSomeDate(-wD+1),getSomeDate(-wD+2),getSomeDate(-wD+3),getSomeDate(-wD+4),getSomeDate(-wD+5),getSomeDate(-wD+6)];
         app.flexUp(0);
+
+    }
+
+    function renderEntries(id) {
+        loadEntry();
 
     }
 
@@ -211,9 +215,9 @@ jetbrains.controller('AppCtrl', function ($http) {
             date: '00:00',
 
         });
-        new Picker(document.getElementById('entrySD'), {
+        var sP = new Picker(document.getElementById('entrySD'), {
             format: 'DD.MM.YYYY',
-            date: '2048.10.2024',
+            date: weekDates[id-1],
 
         });
         new Picker(document.getElementById('entryET'), {
@@ -221,12 +225,16 @@ jetbrains.controller('AppCtrl', function ($http) {
             date: '00:00',
 
         });
-        new Picker(document.getElementById('entryED'), {
+        var eP = new Picker(document.getElementById('entryED'), {
             format: 'DD.MM.YYYY',
-            date: '2048.10.2024',
+            date: weekDates[id-1],
 
         });
-        chosenDay = id;
+
+        app.newEntryStartTime = '00:00';
+        app.newEntryStartDay = sP.getDate(true);
+        app.newEntryEndTime = '00:00';
+        app.newEntryEndDay = sP.getDate(true);
         var days = document.getElementsByClassName('day');
         var j;
         for (j = 0; j < days.length; j++){     //iterating through buttons
@@ -250,8 +258,8 @@ jetbrains.controller('AppCtrl', function ($http) {
         container.style.opacity = 0;
     };
 
-    app.addEntry = function (title,sT,eT,d) {
-        $http({method: 'POST', url: url+'/add', data:{title:title, startDateTime:chosenDay+' '+sT, endDateTime:eT, description:d}}).then( function () {
+    app.addEntry = function (title,sT,sD,eT,eD,d) {
+        $http({method: 'POST', url: url+'/add', data:{title:title, startTime:sT,startDay:sD, endTime:eT,endDay:eD, description:d}}).then( function () {
             loadEntry();
         });
         var days = document.getElementsByClassName('day');
@@ -282,8 +290,53 @@ jetbrains.controller('AppCtrl', function ($http) {
     }
 
     function loadEntry() {
-        $http({method: 'GET', url: url}).then(function successCallback(entries) {
-            app.entries = entries.data;
+
+
+        var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
+        var date1 = weekDates[0].toLocaleDateString('de-DE', options);
+        var date2 = weekDates[1].toLocaleDateString('de-DE', options);
+        var date3 = weekDates[2].toLocaleDateString('de-DE', options);
+        var date4 = weekDates[3].toLocaleDateString('de-DE', options);
+        var date5 = weekDates[4].toLocaleDateString('de-DE', options);
+        var date6 = weekDates[5].toLocaleDateString('de-DE', options);
+        var date7 = weekDates[6].toLocaleDateString('de-DE', options);
+
+
+
+
+        $http({method: 'POST', url: url, data:{startDay:date1}}).then(function successCallback(entries) {
+            app.entries1 = entries.data;
+        }, function errorCallback(response) {
+            return response;
+        });
+        $http({method: 'POST', url: url, data:{startDay:date2}}).then(function successCallback(entries) {
+            app.entries2 = entries.data;
+        }, function errorCallback(response) {
+            return response;
+        });
+        $http({method: 'POST', url: url, data:{startDay:date3}}).then(function successCallback(entries) {
+            app.entries3 = entries.data;
+        }, function errorCallback(response) {
+            return response;
+        });
+        $http({method: 'POST', url: url, data:{startDay:date4}}).then(function successCallback(entries) {
+            app.entries4 = entries.data;
+        }, function errorCallback(response) {
+            return response;
+        });
+        $http({method: 'POST', url: url, data:{startDay:date5}}).then(function successCallback(entries) {
+            app.entries5 = entries.data;
+        }, function errorCallback(response) {
+            return response;
+        });
+        $http({method: 'POST', url: url, data:{startDay:date6}}).then(function successCallback(entries) {
+            app.entries6 = entries.data;
+        }, function errorCallback(response) {
+            return response;
+        });
+        $http({method: 'POST', url: url, data:{startDay:date7}}).then(function successCallback(entries) {
+            app.entries7 = entries.data;
         }, function errorCallback(response) {
             return response;
         });
