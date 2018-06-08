@@ -173,8 +173,20 @@ jetbrains.controller('AppCtrl', function ($http) {
         }
     };
 
-    app.logout = function(){
+    app.registerUser = function(name, username, email, password){
+        $http({method: 'POST', url: url+'/users/register', data:{name: name, username: username, email: email,password: password }}).then( function success (res) {
+            console.log(res);
+        }, function error(err){
+            console.log(err);
+        });
+    };
 
+    app.loginUser = function(username, password){
+        $http({method: 'POST', url: url+'/users/authenticate', data:{username: username, password: password }}).then( function success (res) {
+            console.log(res);
+        }, function error(err){
+            console.log(err);
+        });
     };
 
     app.saveProduct = function (newProduct) {
