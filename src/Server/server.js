@@ -8,6 +8,7 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var config= require('../config/database');
 var users = require('../Routes/users');
+var Picker = require('pickerjs');
 
 mongoose.connect(config.database);
 
@@ -27,7 +28,6 @@ var port = 3000;
 app.use(cors());
 
 app.use(bodyParser.json());
-var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/jetbrains');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
@@ -82,12 +82,6 @@ app.use('/users', users);
 
 //Set Static Folder
 app.use(express.static(path.join(__dirname, '..', 'public')));
-
-
-
-
-
-var Entry = mongoose.model('Entry', {name:String});
 
 
 app.post('/', function (req,res){

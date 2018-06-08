@@ -9,22 +9,38 @@ jetbrains.controller('AppCtrl', function ($http) {
     var app = this;
     var url ='http://localhost:3000';
     var currentDate = new Date();
-    var startDay = document.getElementById('startDay');
-    var startPicker = new Picker(startDay, {
-        title: 'Pick the starting date',
-        format: 'MMM DD, YYYY',
-        date: months[(currentDate.getMonth())].substr(0,3) + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear(),
-    });
-    startDay.addEventListener('pick',setEndDate);
+    var startDay;
+    var startPicker;
+    var wD;
+    var weekDates;
+
     app.init = function () {
+
+        startDay = document.getElementById('startDay');
+        startPicker = new Picker(startDay, {
+            title: 'Pick the starting date',
+            format: 'MMM DD, YYYY',
+            date: months[(currentDate.getMonth())].substr(0,3) + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear(),
+        });
+
+
+        startDay.addEventListener('pick',setEndDate);
+
+
+        wD = startPicker.getDate().getDay()-1;
+        if(wD < 0){wD = 6;}
+
+
+
+        weekDates = [getSomeDate(-wD),getSomeDate(-wD+1),getSomeDate(-wD+2),getSomeDate(-wD+3),getSomeDate(-wD+4),getSomeDate(-wD+5),getSomeDate(-wD+6)];
+
         app.flexUp(0);
         startPicker.pick();
         app.startDay = months[(currentDate.getMonth())].substr(0,3) + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear();
 
     };
-    var wD = startPicker.getDate().getDay()-1;
-    if(wD < 0){wD = 6;}
-    var weekDates = [getSomeDate(-wD),getSomeDate(-wD+1),getSomeDate(-wD+2),getSomeDate(-wD+3),getSomeDate(-wD+4),getSomeDate(-wD+5),getSomeDate(-wD+6)];
+
+
 
     app.flexUp = function (id) {
         renderEntries(id);
@@ -341,5 +357,4 @@ jetbrains.controller('AppCtrl', function ($http) {
             return response;
         });
     }
-    loadEntry();
 });
