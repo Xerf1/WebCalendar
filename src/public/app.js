@@ -27,7 +27,6 @@ jetbrains.controller('AppCtrl', function ($http) {
     var weekDates = [getSomeDate(-wD),getSomeDate(-wD+1),getSomeDate(-wD+2),getSomeDate(-wD+3),getSomeDate(-wD+4),getSomeDate(-wD+5),getSomeDate(-wD+6)];
 
     app.flexUp = function (id) {
-
         renderEntries(id);
         var content = document.getElementById('content');
         var height = window.screen.height;
@@ -178,6 +177,36 @@ jetbrains.controller('AppCtrl', function ($http) {
 
     };
 
+
+    app.showAccMenu = function () {
+        var accMenu = document.getElementById('accMenu');
+        var content = document.getElementById('content');
+        if(accMenu.style.height === '0px') {
+            accMenu.style.height = '100%';
+            content.style.left = 'calc(16.6% + 0px)';
+        }else{
+            accMenu.style.height = 0;
+            content.style.left = '30px';
+        }
+    };
+
+    app.registerUser = function(name, username, email, password){
+        $http({method: 'POST', url: url+'/users/register', data:{name: name, username: username, email: email,password: password }}).then( function success (res) {
+            console.log(res);
+        }, function error(err){
+            console.log(err);
+        });
+    };
+
+    app.loginUser = function(username, password){
+        $http({method: 'POST', url: url+'/users/authenticate', data:{username: username, password: password }}).then( function success (res) {
+            console.log(res);
+        }, function error(err){
+            console.log(err);
+        });
+    };
+
+
     app.showAddEntryContainer = function (id) {
 
 
@@ -243,7 +272,6 @@ jetbrains.controller('AppCtrl', function ($http) {
         container.style.visibility = 'hidden';
         container.style.opacity = 0;
     };
-
 
     app.saveProduct = function (newProduct) {
         $http({method: 'POST', url: url+'/add', data:{name:newProduct}}).then( function () {

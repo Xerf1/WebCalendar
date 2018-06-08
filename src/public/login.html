@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<h2 class="page-header">Login</h2>
+<body ng-app="jetbrains" ng-controller="AppCtrl as app">
+<div id="loginContainer">
+    <div>
+        <label for="username" class="loginItems">Username:</label>
+        <input id="username" type="text" name="username" class="loginItems" ng-model="app.username">
+    </div>
+    <div>
+        <label for="password" class="loginItems">Password:</label>
+        <input id="password" type="password" name="password" class="loginItems" ng-model="app.password">
+    </div>
+</div>
+<input type="submit" class="btn btn-primary" value="Submit" ng-click="app.loginUser(app.username, app.password)">
+<input type="reset" class="btn btn-primary" value="Reset">
+</body>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="app.js"></script>
+</html>
