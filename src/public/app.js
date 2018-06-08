@@ -62,15 +62,18 @@ jetbrains.controller('AppCtrl', function ($http) {
         var i;
         var e = document.getElementsByClassName('day');
         var addEntryButtons = document.getElementsByClassName('addEntry');
+        var entryLists = document.getElementsByClassName('entryList');
         var dates = document.getElementsByClassName('date');
         var wD = startPicker.getDate().getDay()-1;
         if(wD < 0){wD = 6;}
 
 
         if(id !== 0) {
+
+            //     CLICKED ON A DAY
             var label = document.getElementById('date'+id);
             var element = document.getElementById('day' + id);
-            for (i = 0; i < e.length; i++) {  //iterating through days
+            for (i = 0; i < e.length; i++) {                                //ITERATING THROUGH DAYS
                 if((height > (1.5 * width))||(wHeight > (1.5 * wWidth))) {
                     e[i].style.width = '100%';
                     e[i].style.height = 'auto';
@@ -97,8 +100,16 @@ jetbrains.controller('AppCtrl', function ($http) {
                         addEntryButtons[j].style.display = 'inherit';
                     }
                 }
+                var l;
+                for (l = 0; l < entryLists.length; l++){     //iterating through buttons
+                    if(l !== id - 1) {
+                        entryLists[l].style.display = 'none';
+                    }else{
+                        entryLists[l].style.display = 'inherit';
+                    }
+                }
             }
-
+            //DAY THAT WAS CLICKED ON
             var dayOfMonth = weekDates[id-1].getDate()+ 'th ';
             if (weekDates[id-1].getDate()===1 || weekDates[id-1].getDate()===21 || weekDates[id-1].getDate()===31 ){
                 dayOfMonth = weekDates[id-1].getDate()+ 'st ';
@@ -138,10 +149,14 @@ jetbrains.controller('AppCtrl', function ($http) {
                 }
             }
         }else{
-
+            //NO DAY IS FOCUSED
             var k;
             for (k = 0; k < addEntryButtons.length; k++){
                 addEntryButtons[k].style.display = 'none';
+            }
+            var m;
+            for (m = 0; m < entryLists.length; m++){
+                entryLists[m].style.display = 'none';
             }
 
             for (i = 0; i < e.length; i++) {
