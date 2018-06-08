@@ -2,15 +2,31 @@
 var jetbrains = angular.module('jetbrains', []);
 
 
-var weekday = ['Sunday', 'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+var weekday = ['Sunday', 'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday', 'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 var months = ['January','Febuary','March','April','May','June','July','August','September','October','November','December'];
-
+var Picker = window.Picker;
 jetbrains.controller('AppCtrl', function ($http) {
     var app = this;
     var url ='http://localhost:3000';
+    var chosenDay;
+    var currentDate = new Date();
+    var startDay = document.getElementById('startDay');
+    var startPicker = new Picker(startDay, {
+        title: 'Pick the starting date',
+        format: 'MMM DD, YYYY',
+        date: months[(currentDate.getMonth())].substr(0,3) + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear(),
+    });
+    startDay.addEventListener('pick',setEndDate);
+    app.init = function () {
+        app.flexUp(0);
+        startPicker.pick();
+        app.startDay = months[(currentDate.getMonth())].substr(0,3) + ' ' + currentDate.getDate() + ', ' + currentDate.getFullYear();
+    };
 
     app.flexUp = function (id) {
-        var content = document.getElementById('content')
+
+
+        var content = document.getElementById('content');
         var height = window.screen.height;
         var width = window.screen.width;
         var wHeight = window.innerHeight;
@@ -107,13 +123,6 @@ jetbrains.controller('AppCtrl', function ($http) {
                     label.innerHTML = weekday[w1] + ' the ' + dayOfMonth + 'of ' + months[m1] + ', ' + y;
                 }
             }
-
-
-
-
-
-
-
         }else{
 
             var k;
@@ -148,6 +157,16 @@ jetbrains.controller('AppCtrl', function ($http) {
             }
         }
     };
+
+
+    function setEndDate() {
+        console.log(getSomeDate2(0));
+        var wD = startPicker.getDate().getDay()-1;
+        if(wD < 0){wD = 6;}
+        console.log(wD);
+        app.endDay = months[(getSomeDate2(-wD).getMonth())].substr(0,3) + ' ' + getSomeDate2(-wD).getDate() + ', ' + getSomeDate2(-wD).getFullYear() + ' - ' + months[(getSomeDate2(-wD+6).getMonth())].substr(0,3) + ' ' + getSomeDate2(-wD+6).getDate() + ', ' + getSomeDate2(-wD+6).getFullYear();
+    }
+
     app.showMenu = function () {
         var menu = document.getElementById('menu');
         var content = document.getElementById('content');
@@ -161,29 +180,97 @@ jetbrains.controller('AppCtrl', function ($http) {
 
     };
 
+    app.showAddEntryContainer = function (id) {
+
+        var currentDate = new Date();
+
+
+        new Picker(document.getElementById('entryST'), {
+            format: 'HH:mm',
+            date: '00:00',
+
+        });
+        new Picker(document.getElementById('entrySD'), {
+            format: 'DD.MM.YYYY',
+            date: '2048.10.2024',
+
+        });
+        new Picker(document.getElementById('entryET'), {
+            format: 'HH:mm',
+            date: '00:00',
+
+        });
+        new Picker(document.getElementById('entryED'), {
+            format: 'DD.MM.YYYY',
+            date: '2048.10.2024',
+
+        });
+        chosenDay = id;
+        var days = document.getElementsByClassName('day');
+        var j;
+        for (j = 0; j < days.length; j++){     //iterating through buttons
+            days[j].style.opacity = 0;
+            days[j].style.visibility = 'hidden';
+        }
+        var container = document.getElementById('addEntryContainer');
+        container.style.visibility = 'visible';
+        container.style.opacity = 1;
+    };
+
+    app.closeAddEntryContainer = function () {
+        var days = document.getElementsByClassName('day');
+        var j;
+        for (j = 0; j < days.length; j++){     //iterating through buttons
+            days[j].style.opacity = 1;
+            days[j].style.visibility = 'visible';
+        }
+        var container = document.getElementById('addEntryContainer');
+        container.style.visibility = 'hidden';
+        container.style.opacity = 0;
+    };
+
+    app.addEntry = function (title,sT,eT,d) {
+        $http({method: 'POST', url: url+'/add', data:{title:title, startDateTime:chosenDay+' '+sT, endDateTime:eT, description:d}}).then( function () {
+            loadEntry();
+        });
+        var days = document.getElementsByClassName('day');
+        var j;
+        for (j = 0; j < days.length; j++){     //iterating through buttons
+            days[j].style.opacity = 1;
+            days[j].style.visibility = 'visible';
+        }
+        var container = document.getElementById('addEntryContainer');
+        container.style.visibility = 'hidden';
+        container.style.opacity = 0;
+    };
+
+
     app.saveProduct = function (newProduct) {
         $http({method: 'POST', url: url+'/add', data:{name:newProduct}}).then( function () {
-            loadProduct();
+            loadEntry();
         });
     };
 
     app.deleteProduct = function (delProduct) {
         $http({method: 'POST', url: url+'/delete', data:{name:delProduct}}).then( function () {
-            loadProduct();
+            loadEntry();
         });
     };
 
     function getSomeDate(t){
-        var date = new Date(new Date().getTime() + t*(24 * 60 * 60 * 1000));
-        return date;
+        return new Date(new Date().getTime() + t*(24 * 60 * 60 * 1000));
     }
 
-    function loadProduct() {
-        $http({method: 'GET', url: url}).then(function successCallback(products) {
-            app.products = products.data;
+    function getSomeDate2(t){
+        return new Date(startPicker.getDate().getTime()+ t*(24 * 60 * 60 * 1000));
+    }
+
+    function loadEntry() {
+        $http({method: 'GET', url: url}).then(function successCallback(entries) {
+            app.entries = entries.data;
         }, function errorCallback(response) {
-            console.log(response);
+            return response;
         });
     }
-    loadProduct();
+    loadEntry();
 });
