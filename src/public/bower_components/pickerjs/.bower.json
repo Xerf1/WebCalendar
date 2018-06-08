@@ -1,0 +1,46 @@
+{
+  "name": "pickerjs",
+  "description": "JavaScript date time picker.",
+  "main": [
+    "dist/picker.js",
+    "dist/picker.css"
+  ],
+  "keywords": [
+    "date",
+    "time",
+    "picker",
+    "datepicker",
+    "timepicker",
+    "html",
+    "css",
+    "javascript",
+    "front-end",
+    "web",
+    "development"
+  ],
+  "homepage": "https://github.com/fengyuanchen/pickerjs",
+  "authors": [
+    "Fengyuan Chen"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "test",
+    "docs",
+    "gulpfile.js"
+  ],
+  "version": "0.2.0",
+  "_release": "0.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.0",
+    "commit": "93f77dca0dbcf3b6443ef19e566f5829de06375b"
+  },
+  "_source": "https://github.com/fengyuanchen/pickerjs.git",
+  "_target": "^0.2.0",
+  "_originalSource": "pickerjs",
+  "_direct": true
+}

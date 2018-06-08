@@ -4,55 +4,80 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link  href="./bower_components/pickerjs/dist/picker.css" rel="stylesheet">
 </head>
-<body ng-app="jetbrains" ng-controller="AppCtrl as app" data-ng-init="app.flexUp(0)">
+<body ng-app="jetbrains" ng-controller="AppCtrl as app" data-ng-init="app.init()">
 <link href="https://fonts.googleapis.com/css?family=Dawning+of+a+New+Day" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Dancing+Script|Josefin+Sans|Italianno|Kaushan+Script|Lobster|Pacifico" rel="stylesheet">
 
 <!--NAVIGATION BAR-->
 <div id="navBar">
+
     <button id='upperLeftButton' class="button" ng-click="app.showAccMenu()"></button>
+    <input id="startDay" value="07.06.2018" class="entryItems" type="text" ng-model="app.startDay">
+    <input id="endDay" value="lol" class="entryItems" type="text" ng-model="app.endDay">
     <!--<button id='menuButton' class="button" ng-click="app.deleteProduct(app.newProduct)"></button>-->
     <button id='menuButton' class="button" ng-click="app.showMenu()"></button>
 </div>
 
 <!--CALENDAR CONTENT-->
 <div id="content">
+    <div id="addEntryContainer" >
+        <i id="closeAddEntryContainer" class="material-icons" ng-click="app.closeAddEntryContainer()">clear</i>
+        <input id='entryTitle' class="entryItems" type="text" ng-model="app.newEntryTitle"/>
+        <input id="entryST" class="entryItems" type="text" ng-model="app.newEntryStartTime">
+        <input id="entrySD" class="entryItems" type="text" ng-model="app.newEntryStartDay">
+        <input id="entryET" class="entryItems" type="text" ng-model="app.newEntryEndTime"/>\
+        <input id="entryED" class="entryItems" type="text" ng-model="app.newEntryEndDay"/>
+        <textarea id="entryDesc" ng-model="app.newEntryDesc"></textarea>
+        <label id="entryTitleLabel" class="entryItems" for="entryTitle">Title</label>
+        <label id="entrySTLabel" class="entryItems" for="entryST">Start Time</label>
+        <label id="entryETLabel" class="entryItems" for="entryET">End Time</label>
+        <label id="entryDescLabel" class="entryItems" for="entryDesc">Description</label>
+        <i id="saveEntry" class="material-icons" ng-click="app.addEntry(app.newEntryTitle,app.newEntryStartTime,app.newEntryEndTime,app.newEntryDesc)">done_outline</i>
+    </div>
+
+
+
     <div class="day" id="day1" style="flex: 1" ng-click="app.flexUp('1')">
         <div class="date" id="date1"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+        <div class="entryContainer">
+            <button class="addEntry" ng-click="app.showAddEntryContainer(1)">+</button>
+            <ul>
+                <li ng-repeat="entry in app.entries">
+                    {{entry.Title}}
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="day" id="day2" style="flex: 1" ng-click="app.flexUp('2')">
         <div class="date" id="date2"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(2)">+</button></div>
     </div>
     <div class="day" id="day3" style="flex: 1" ng-click="app.flexUp('3')">
         <div class="date" id="date3"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(3)">+</button></div>
     </div>
     <div class="day" id="day4" style="flex: 1" ng-click="app.flexUp('4')">
         <div class="date" id="date4"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(4)">+</button></div>
     </div>
     <div class="day" id="day5" style="flex: 1" ng-click="app.flexUp('5')">
         <div class="date" id="date5"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(5)">+</button></div>
     </div>
     <div class="day" id="day6" style="flex: 1" ng-click="app.flexUp('6')">
         <div class="date" id="date6"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(6)">+</button></div>
     </div>
     <div class="day" id="day7" style="flex: 1" ng-click="app.flexUp('7')">
         <div class="date" id="date7"></div>
-        <div class="entryContainer"><button class="addEntry" ng-click="app.addEntry('1')">+</button></div>
+        <div class="entryContainer"><button class="addEntry" ng-click="app.showAddEntryContainer(7)">+</button></div>
     </div>
 
-    <!--<ul>
-        <li ng-repeat="product in app.products">
-            {{product.name}}
-        </li>
-    </ul>-->
+
 
 </div>
 
@@ -78,10 +103,7 @@
 
 
 
-
-
-
-<link>
+<script src="./bower_components/pickerjs/dist/picker.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="app.js"></script>
 </body>

@@ -11,8 +11,8 @@ jetbrains.controller("AppCtrl", function ($http) {
         })
     };
     function loadProduct() {
-        $http({method: 'GET', url: url}).then(function successCallback(products) {
-            app.products = products.data;
+        $http({method: 'GET', url: url}).then(function successCallback(entries) {
+            app.entries = entries.data;
         }, function errorCallback(response) {
             // called asynchronously if an error occurs
             // or server returns response with an error status.
