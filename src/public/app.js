@@ -222,11 +222,11 @@ jetbrains.controller('AppCtrl', function ($http) {
     app.showMenu = function () {
         var menu = document.getElementById('menu');
         var content = document.getElementById('content');
-        if(menu.style.height === '0px') {
-            menu.style.height = '100%';
+        if(menu.style.visibility === 'hidden') {
+            menu.style.visibility = 'visible';
             content.style.right = 'calc(16.6% + 0px)';
         }else{
-            menu.style.height = 0;
+            menu.style.visibility = 'hidden';
             content.style.right = '30px';
         }
 
@@ -311,6 +311,8 @@ jetbrains.controller('AppCtrl', function ($http) {
             days[j].style.visibility = 'visible';
         }
         var container = document.getElementById('addEntryContainer');
+        document.getElementById('entryTitle').value = '';
+        document.getElementById('entryDesc').value = '';
         container.style.visibility = 'hidden';
         container.style.opacity = 0;
     };
@@ -319,15 +321,7 @@ jetbrains.controller('AppCtrl', function ($http) {
         $http({method: 'POST', url: url+'/add', data:{title:title, startTime:sT,startDay:sD, endTime:eT,endDay:eD, description:d}}).then( function () {
             loadEntry();
         });
-        var days = document.getElementsByClassName('day');
-        var j;
-        for (j = 0; j < days.length; j++){     //iterating through buttons
-            days[j].style.opacity = 1;
-            days[j].style.visibility = 'visible';
-        }
-        var container = document.getElementById('addEntryContainer');
-        container.style.visibility = 'hidden';
-        container.style.opacity = 0;
+        app.closeAddEntryContainer();
     };
 
     app.deleteEntry = function (delTitle,delTime) {
@@ -365,7 +359,11 @@ jetbrains.controller('AppCtrl', function ($http) {
 
 
 
-
+        $http({method: 'POST', url: url+'/all'}).then(function successCallback(entries) {
+            app.entries = entries.data;
+        }, function errorCallback(response) {
+            return response;
+        });
         $http({method: 'POST', url: url, data:{startDay:date1}}).then(function successCallback(entries) {
             app.entries1 = entries.data;
         }, function errorCallback(response) {

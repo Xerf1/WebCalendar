@@ -85,7 +85,13 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 
 app.post('/', function (req,res){
-    Entry.find({StartDay:req.body.startDay}, function (err, entries){
+    Entry.find({StartDay: req.body.startDay}, function (err, entries) {
+        res.send(entries);
+    });
+});
+
+app.post('/all', function (req,res){
+    Entry.find(function (err, entries) {
         res.send(entries);
     });
 });

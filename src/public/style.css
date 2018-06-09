@@ -127,6 +127,8 @@
     padding: inherit;
     border: inherit;
     margin: inherit;
+    font-size: 100%;
+    color: #67757f;
 
 }
 .button{
@@ -313,6 +315,8 @@ button:focus {outline:0;}
 input:focus {outline:0;}
 textarea:focus {outline:0;}
 body{
+
+    font-family: 'Josefin Sans', sans-serif;
     min-width:1000px;
     background:#67757f;
     padding: 0;
