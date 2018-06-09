@@ -36,12 +36,8 @@ var entrySchema = new Schema({
         type: ObjectId,
         required: true
     },
-    UserID: {
-        type: ObjectId,
-        required: true
-    },
-    CategoryID: {
-        type: ObjectId,
+    UserName: {
+        type: String,
         required: true
     },
     StartTime: {
@@ -75,8 +71,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('../config/passport')(passport);
-var userID = mongoose.Types.ObjectId();
-var categoryID = mongoose.Types.ObjectId();
 
 app.use('/users', users);
 
@@ -85,13 +79,13 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 
 app.post('/', function (req,res){
-    Entry.find({StartDay: req.body.startDay}, function (err, entries) {
+    Entry.find({StartDay: req.body.startDay, UserName: req.body.userName}, function (err, entries) {
         res.send(entries);
     });
 });
 
 app.post('/all', function (req,res){
-    Entry.find(function (err, entries) {
+    Entry.find({UserName: req.body.userName},function (err, entries) {
         res.send(entries);
     });
 });
@@ -105,8 +99,7 @@ app.post('/add', function (req, res) {
         StartDay:req.body.startDay,
         EndTime:req.body.endTime,
         EndDay:req.body.endDay,
-        CategoryID:categoryID,
-        UserID:userID
+        UserName:req.body.userName
     });
     entry.save(function (err) {
         if(err){
@@ -120,7 +113,8 @@ app.post('/add', function (req, res) {
 app.post('/delete', function (req, res) {
     var title = req.body.title;
     var startTime = req.body.startTime;
-    var entry = Entry.find({Title:title,StartTime:startTime});
+    var userName = req.body.userName;
+    var entry = Entry.find({Title:title,StartTime:startTime,UserName:userName});
     entry.remove(function (err) {
         if(err){
             console.log(err);

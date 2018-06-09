@@ -6,6 +6,9 @@ var weekday = ['Sunday', 'Monday','Tuesday','Wednesday','Thursday','Friday','Sat
 var months = ['January','Febuary','March','April','May','June','July','August','September','October','November','December'];
 var Picker = window.Picker;
 jetbrains.controller('AppCtrl', function ($http) {
+
+    var userName;
+    var userID;
     var app = this;
     var url ='http://localhost:3000';
     var currentDate = new Date();
@@ -248,19 +251,103 @@ jetbrains.controller('AppCtrl', function ($http) {
     };
 
     app.registerUser = function(name, username, email, password){
-        $http({method: 'POST', url: url+'/users/register', data:{name: name, username: username, email: email,password: password }}).then( function  () {
-            console.log('KK');
-        }, function error(err){
-            console.log(err);
-        });
+
+        if(name === undefined || username === undefined || password === undefined || name === undefined) {
+            if (name === undefined) {
+                app.name = '';
+                document.getElementById('name').style.backgroundColor = 'red';
+                document.getElementById('name').style.color = 'black';
+            }
+            if (username === undefined) {
+                app.usernameR = '';
+                document.getElementById('usernameR').style.backgroundColor = 'red';
+                document.getElementById('usernameR').style.color = 'black';
+            }
+            if (email === undefined) {
+                app.email = '';
+                document.getElementById('email').style.backgroundColor = 'red';
+                document.getElementById('email').style.color = 'black';
+            }
+            if (password === undefined) {
+                app.passwordR = '';
+                document.getElementById('passwordR').style.backgroundColor = 'red';
+                document.getElementById('passwordR').style.color = 'black';
+            }
+        }else{
+            document.getElementById('name').style.backgroundColor = 'transparent';
+            document.getElementById('name').style.color = '#67757f';
+            document.getElementById('usernameR').style.backgroundColor = 'transparent';
+            document.getElementById('usernameR').style.color = '#67757f';
+            document.getElementById('email').style.backgroundColor = 'transparent';
+            document.getElementById('email').style.color = '#67757f';
+            document.getElementById('passwordR').style.backgroundColor = 'transparent';
+            document.getElementById('passwordR').style.color = '#67757f';
+
+            userName = username;
+            document.getElementById('upperLeftButton').innerHTML = username;
+            loggedIn();
+
+            $http({
+                method: 'POST',
+                url: url + '/users/register',
+                data: {name: name, username: username, email: email, password: password}
+            }).then(function success(res) {
+                console.log(res);
+            }, function error(err) {
+                console.log(err);
+            });
+        }
     };
 
     app.loginUser = function(username, password){
-        $http({method: 'POST', url: url+'/users/authenticate', data:{username: username, password: password }}).then( function () {
-            console.log('KK');
-        }, function error(err){
-            console.log(err);
-        });
+        if(username === undefined || password == undefined){
+            if (username === undefined) {
+                app.username = '';
+                document.getElementById('username').style.backgroundColor = 'red';
+                document.getElementById('username').style.color = 'black';
+            }
+            if (password === undefined) {
+                app.password = '';
+                document.getElementById('password').style.backgroundColor = 'red';
+                document.getElementById('password').style.color = 'black';
+            }
+        }else {
+            $http({
+                method: 'POST',
+                url: url + '/users/authenticate',
+                data: {username: username, password: password}
+            }).then(function success(res) {
+                console.log(res.data);
+                if(res.data.success === true){
+
+                    app.username = '';
+                    app.password = '';
+                    document.getElementById('password').style.backgroundColor = 'transparent';
+                    document.getElementById('password').style.color = '#67757f';
+                    document.getElementById('username').style.backgroundColor = 'transparent';
+                    document.getElementById('username').style.color = '#67757f';
+                    userName = username;
+                    document.getElementById('upperLeftButton').innerHTML = username;
+                    loggedIn();
+                    console.log('success');
+                }else{
+                    if(res.data.r === 0){
+                        app.username = '';
+                        document.getElementById('username').style.backgroundColor = 'red';
+                        document.getElementById('username').style.color = 'black';
+                        app.password = '';
+                    }else if(res.data.r === 1){
+                        document.getElementById('username').style.backgroundColor = 'transparent';
+                        document.getElementById('username').style.color = '#67757f';
+                        app.password = '';
+                        document.getElementById('password').style.backgroundColor = 'red';
+                        document.getElementById('password').style.color = 'black';
+                    }
+                }
+            }, function error(err) {
+                console.log(err);
+            });
+        }
     };
 
 
@@ -320,15 +407,38 @@ jetbrains.controller('AppCtrl', function ($http) {
     };
 
     app.addEntry = function (title,sT,sD,eT,eD,d) {
-        $http({method: 'POST', url: url+'/add', data:{title:title, startTime:sT,startDay:sD, endTime:eT,endDay:eD, description:d}}).then( function () {
+        $http({method: 'POST', url: url+'/add', data:{title:title, startTime:sT,startDay:sD, endTime:eT,endDay:eD, description:d,userName:userName}}).then( function () {
             loadEntry();
         });
         app.closeAddEntryContainer();
     };
 
+    app.logout = function () {
+        userName = '';
+
+        document.getElementById('upperLeftButton').innerHTML = '';
+        document.getElementById('logoutButton').style.visibility = 'hidden';
+        document.getElementById('logoutButton').style.opacity = 0;
+        document.getElementById('loginButton').style.visibility = 'visible';
+        document.getElementById('loginButton').style.opacity = 1;
+        document.getElementById('registerButton').style.visibility = 'visible';
+        document.getElementById('registerButton').style.opacity = 1;
+        document.getElementById('register').style.visibility = 'hidden';
+        document.getElementById('register').style.opacity = 0;
+        document.getElementById('login').style.visibility = 'hidden';
+        document.getElementById('login').style.opacity = 0;
+        app.password = '';
+        app.passwordR = '';
+        app.username = '';
+        app.usernameR = '';
+        app.email = '';
+        app.name = '';
+        loadEntry();
+    };
+
     app.deleteEntry = function (delTitle,delTime) {
         console.log('lel');
-        $http({method: 'POST', url: url+'/delete', data:{title:delTitle,startTime:delTime}}).then( function () {
+        $http({method: 'POST', url: url+'/delete', data:{title:delTitle,startTime:delTime,userName:userName}}).then( function () {
             loadEntry();
         });
     };
@@ -377,6 +487,22 @@ jetbrains.controller('AppCtrl', function ($http) {
         return new Date(startPicker.getDate().getTime()+ t*(24 * 60 * 60 * 1000));
     }
 
+
+    function loggedIn(){
+        document.getElementById('register').style.visibility = 'hidden';
+        document.getElementById('register').style.opacity = 0;
+        document.getElementById('login').style.visibility = 'hidden';
+        document.getElementById('login').style.opacity = 0;
+        document.getElementById('loginButton').style.visibility = 'hidden';
+        document.getElementById('loginButton').style.opacity = 0;
+        document.getElementById('registerButton').style.visibility = 'hidden';
+        document.getElementById('registerButton').style.opacity = 0;
+        document.getElementById('logoutButton').style.visibility = 'visible';
+        document.getElementById('logoutButton').style.opacity = 1;
+        loadEntry();
+    }
+
+
     function loadEntry() {
 
 
@@ -396,42 +522,42 @@ jetbrains.controller('AppCtrl', function ($http) {
 
 
 
-        $http({method: 'POST', url: url+'/all'}).then(function successCallback(entries) {
+        $http({method: 'POST', url: url+'/all', data:{userName:userName}}).then(function successCallback(entries) {
             app.entries = entries.data;
         }, function errorCallback(response) {
             return response;
         });
-        $http({method: 'POST', url: url, data:{startDay:date1}}).then(function successCallback(entries) {
+        $http({method: 'POST', url: url, data:{startDay:date1,userName:userName}}).then(function successCallback(entries) {
             app.entries1 = entries.data;
         }, function errorCallback(response) {
             return response;
         });
-        $http({method: 'POST', url: url, data:{startDay:date2}}).then(function successCallback(entries) {
+        $http({method: 'POST', url: url, data:{startDay:date2,userName:userName}}).then(function successCallback(entries) {
             app.entries2 = entries.data;
         }, function errorCallback(response) {
             return response;
         });
-        $http({method: 'POST', url: url, data:{startDay:date3}}).then(function successCallback(entries) {
+        $http({method: 'POST', url: url, data:{startDay:date3,userName:userName}}).then(function successCallback(entries) {
             app.entries3 = entries.data;
         }, function errorCallback(response) {
             return response;
         });
-        $http({method: 'POST', url: url, data:{startDay:date4}}).then(function successCallback(entries) {
+        $http({method: 'POST', url: url, data:{startDay:date4,userName:userName}}).then(function successCallback(entries) {
             app.entries4 = entries.data;
         }, function errorCallback(response) {
             return response;
         });
-        $http({method: 'POST', url: url, data:{startDay:date5}}).then(function successCallback(entries) {
+        $http({method: 'POST', url: url, data:{startDay:date5,userName:userName}}).then(function successCallback(entries) {
             app.entries5 = entries.data;
         }, function errorCallback(response) {
             return response;
         });
-        $http({method: 'POST', url: url, data:{startDay:date6}}).then(function successCallback(entries) {
+        $http({method: 'POST', url: url, data:{startDay:date6,userName:userName}}).then(function successCallback(entries) {
             app.entries6 = entries.data;
         }, function errorCallback(response) {
             return response;
         });
-        $http({method: 'POST', url: url, data:{startDay:date7}}).then(function successCallback(entries) {
+        $http({method: 'POST', url: url, data:{startDay:date7,userName:userName}}).then(function successCallback(entries) {
             app.entries7 = entries.data;
         }, function errorCallback(response) {
             return response;

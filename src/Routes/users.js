@@ -16,9 +16,10 @@ router.post('/register', function(req, res, next){
 
     User.addUser(newUser, function(err, user){
         if(err){
-            res.json({success: false, msg:'Failed to register user'});
+            res.send({success: 500, msg:'Failed to register user: '+err});
+            throw err;
         } else {
-            res.json({success: true, msg:'User registered'});
+            res.send({success: 200, msg:'User registered'});
         }
     });
 });
@@ -31,7 +32,7 @@ router.post('/authenticate', function(req, res, next){
     User.getUserByUsername(username, function(err, user){
         if(err) throw err;
         if(!user){
-            return res.json({success: false, msg: 'User not found'});
+            return res.json({success: false, msg: 'User not found',r:0});
         }
 
         User.comparePassword(password, user.password, function(err, isMatch){
@@ -52,7 +53,7 @@ router.post('/authenticate', function(req, res, next){
                     }
                 });
             } else {
-                return res.json({success: false, msg: 'Wrong password'});
+                return res.json({success: false, msg: 'Wrong password',r:1});
             }
         });
     });
