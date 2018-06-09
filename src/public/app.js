@@ -43,7 +43,14 @@ jetbrains.controller('AppCtrl', function ($http) {
 
     };
 
+    app.checkIfClosing = function () {
+        var x = event.clientX, y = event.clientY,
+            elementMouseIsOver = document.elementFromPoint(x, y);
 
+        if(elementMouseIsOver.id === 'content'){
+            app.flexUp(0);
+        }
+    };
 
     app.flexUp = function (id) {
         renderEntries(id);
@@ -207,6 +214,7 @@ jetbrains.controller('AppCtrl', function ($http) {
         var width = window.screen.width;
         var wHeight = window.innerHeight;
         var wWidth = window.innerWidth;
+
         var resoSwitch = true;
         if(resoSwitch === false) {
             if ((height > (1.5 * width)) || (wHeight > (1.5 * wWidth))){
@@ -215,7 +223,6 @@ jetbrains.controller('AppCtrl', function ($http) {
             }
         }else{
             if ((height < (1.5 * width)) || (wHeight < (1.5 * wWidth))){
-                console.log('lel');
                 app.flexUp(0);
                 resoSwitch = false;
             }

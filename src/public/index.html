@@ -15,7 +15,7 @@
 <!--NAVIGATION BAR-->
 <div id="navBar">
 
-    <button id='upperLeftButton' class="button" ng-click="app.showAccMenu()"></button>
+    <button id='upperLeftButton' class="button" ng-click="app.showAccMenu()">Start!</button>
     <input id="startDay" value="07.06.2018" class="entryItems" type="text" ng-model="app.startDay">
     <input id="endDay" value="lol" class="entryItems" type="text" ng-model="app.endDay">
     <!--<button id='menuButton' class="button" ng-click="app.deleteProduct(app.newProduct)"></button>-->
@@ -23,7 +23,7 @@
 </div>
 
 <!--CALENDAR CONTENT-->
-<div id="content">
+<div id="content" ng-click="app.checkIfClosing()">
     <div id="addEntryContainer" >
         <i id="closeAddEntryContainer" class="material-icons" ng-click="app.closeAddEntryContainer()">clear</i>
         <input id='entryTitle' class="entryItems" type="text" ng-model="app.newEntryTitle"/>
@@ -160,9 +160,6 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
 
 <div id="accMenu" style="visibility: hidden">

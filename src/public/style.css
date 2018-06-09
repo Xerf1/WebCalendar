@@ -9,15 +9,31 @@
 }
 
 #startDay {
-    left: 200px;
+    left: 150px;
     top: 20px;
     bottom: 20px;
+    cursor: pointer;
 }
-#endDay{
-    top: 20px;
-    width:400px;
-    right: calc(16.6% + 20px);
-    bottom: 20px;
+#startDay:hover{
+    color: #67757f;
+}
+@media screen and (min-width: 1000px) {
+    #endDay{
+        top: 20px;
+        width:400px;
+        right: calc(16.6% + 20px);
+        bottom: 20px;
+        cursor: default;
+    }
+}
+@media screen and (max-width: 999px) {
+    #endDay{
+        visibility: hidden;
+        top: 20px;
+        width:400px;
+        right: calc(16.6% + 20px);
+        bottom: 20px;
+    }
 }
 #menu{
     position: fixed;
@@ -71,6 +87,7 @@
      position: absolute;
      right: 10px;
      color: #67757f;
+     cursor: pointer;
 }
 
 .entryDeleteDiv:hover{
@@ -115,6 +132,7 @@
     color: #67757f;
     width:100%;
     font-size: 2vw;
+    cursor: pointer;
 }
 .accButtons:hover{
 
@@ -130,6 +148,7 @@
     border: none;
     border-radius: 50%;
     padding: 0;
+    cursor: pointer;
 }
 
 #menuButton{
@@ -144,6 +163,7 @@
     margin: inherit;
     font-size: 100%;
     color: #67757f;
+    cursor: pointer;
 
 }
 .button{
@@ -364,13 +384,17 @@ button:focus {outline:0;}
 input:focus {outline:0;}
 textarea:focus {outline:0;}
 body{
-
     font-family: 'Josefin Sans', sans-serif;
-    min-width:1000px;
     background:#67757f;
     padding: 0;
     margin: 0;
     border: 0;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 
 select{
