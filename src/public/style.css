@@ -40,9 +40,9 @@
     display: flex;
     position: fixed;
     top:110px;
-    right: calc(16.6% + 20px);
+    right: 20px;
     bottom: 10px;
-    left: calc(16.6% + 20px);
+    left: 20px;
     background: #67757f;
     padding: 50px;
     margin: inherit;
@@ -104,6 +104,21 @@
     background: transparent;
     font-size: 14px;
     font-family: 'Josefin Sans', sans-serif;
+}
+.accButtons{
+    transition: opacity 300ms linear, visibility 300ms linear;
+    height: 3vw;
+    border-bottom: solid #67757f 1px;
+    text-align: center;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    color: #67757f;
+    width:100%;
+    font-size: 2vw;
+}
+.accButtons:hover{
+
+    color: #8ea1af;
 }
 #upperLeftButton{
 
@@ -174,6 +189,23 @@
     }
 }
 
+.registerLoginContainer{
+    position: absolute;
+    color: #67757f;
+    padding: 10px;
+    top: 0;
+    left: 0;
+}
+.loginItems{
+    width: calc(100% - 10px);
+    position: static;
+    background: transparent;
+    border:solid #67757f 1px;
+    color: #67757f;
+    margin-bottom: 10px;
+    padding: 5px;
+
+}
 #addEntryContainer{
     visibility: hidden;
     opacity: 0;
@@ -309,6 +341,15 @@
     position: relative;
     width:100%;
     height: calc(100% - 50px);
+}
+
+#login{
+    transition: opacity 300ms linear, visibility 300ms linear;
+
+}
+#register{
+    transition: opacity 300ms linear, visibility 300ms linear;
+
 }
 
 button:focus {outline:0;}

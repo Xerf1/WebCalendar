@@ -165,47 +165,52 @@
 
 </div>
 
-<div id="accMenu" >
-<div id="register">
-    <div id="registerContainer">
-        <div>
-            <label for="name" class="registerItems">Name:</label>
-            <input id="name" type="text" name="name" class="registerItems" ng-model="app.name">
+<div id="accMenu" style="visibility: hidden">
+    <div id="loginButton" class="accButtons" ng-click="app.showLogin()" style="padding-top: 15px">Login</div>
+    <div id="registerButton" class="accButtons" ng-click="app.showRegister()">Register</div>
+
+    <div id="register" class="registerLoginContainer" style="visibility: hidden; opacity: 0">
+        <div id="registerContainer">
+            <div>
+                <label for="name" >Name:</label>
+                <input id="name" type="text" name="name" class="loginItems" ng-model="app.name">
+            </div>
+            <div>
+                <label for="usernameR">Username:</label>
+                <input id="usernameR" type="text" name="username" class="loginItems" ng-model="app.username">
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input id="email" type="text" name="email" class="loginItems" ng-model="app.email">
+            </div>
+            <div>
+                <label for="passwordR" >Password:</label>
+                <input id="passwordR" type="password" name="password" class="loginItems" ng-model="app.password">
+            </div>
         </div>
-        <div>
-            <label for="usernameR" class="registerItems">Username:</label>
-            <input id="usernameR" type="text" name="username" class="registerItems" ng-model="app.username">
-        </div>
-        <div>
-            <label for="email" class="registerItems">Email:</label>
-            <input id="email" type="text" name="email" class="registerItems" ng-model="app.email">
-        </div>
-        <div>
-            <label for="passwordR" class="registerItems">Password:</label>
-            <input id="passwordR" type="password" name="password" class="registerItems" ng-model="app.password">
-        </div>
+        <div class="accButtons" ng-click="app.registerUser(app.name, app.usernameR, app.email, app.passwordR)">Register</div>
+        <div class="accButtons" ng-click="app.closeRegisterLogin()">Back</div>
     </div>
-    <input type="submit" class="btn btn-primary" value="Submit" ng-click="app.registerUser(app.name, app.username, app.email, app.password)">
-    <input type="reset" class="btn btn-primary" value="Reset">
-</div>
-<div id="login">
-    <div id="loginContainer">
-        <div>
-            <label for="username" class="loginItems">Username:</label>
-            <input id="username" type="text" name="username" class="loginItems" ng-model="app.username">
+
+    <div id="login" class="registerLoginContainer" style="visibility: hidden; opacity: 0">
+        <div id="loginContainer">
+            <div>
+                <label for="username">Username:</label>
+                <input id="username" type="text" name="username" class="loginItems" ng-model="app.username">
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input id="password" type="password" name="password" class="loginItems" ng-model="app.password">
+            </div>
         </div>
-        <div>
-            <label for="password" class="loginItems">Password:</label>
-            <input id="password" type="password" name="password" class="loginItems" ng-model="app.password">
-        </div>
+        <div class="accButtons" ng-click="app.loginUser(app.username, app.password)">Login</div>
+        <div class="accButtons" ng-click="app.closeRegisterLogin()" >Back</div>
     </div>
-    <input type="submit" class="btn btn-primary" value="Submit" ng-click="app.loginUser(app.username, app.password)">
-    <input type="reset" class="btn btn-primary" value="Reset">
-</div>
+
 </div>
 
 <!--MENU-->
-<div id="menu">
+<div id="menu" style="visibility: hidden">
     <div ng-repeat="entry in app.entries | orderBy:'StartDay'">
         <div style="border:solid #9faabd 1px; margin-bottom: 10px; ">
         <div class="entryDiv" >

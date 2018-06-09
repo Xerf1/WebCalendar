@@ -224,10 +224,10 @@ jetbrains.controller('AppCtrl', function ($http) {
         var content = document.getElementById('content');
         if(menu.style.visibility === 'hidden') {
             menu.style.visibility = 'visible';
-            content.style.right = 'calc(16.6% + 0px)';
+            content.style.right = 'calc(16.6% + 20px)';
         }else{
             menu.style.visibility = 'hidden';
-            content.style.right = '30px';
+            content.style.right = '20px';
         }
 
     };
@@ -236,12 +236,14 @@ jetbrains.controller('AppCtrl', function ($http) {
     app.showAccMenu = function () {
         var accMenu = document.getElementById('accMenu');
         var content = document.getElementById('content');
-        if(accMenu.style.height === '0px') {
-            accMenu.style.height = '100%';
-            content.style.left = 'calc(16.6% + 0px)';
+        if(accMenu.style.visibility === 'hidden') {
+            accMenu.style.visibility = 'visible';
+            accMenu.style.display = 'block';
+            content.style.left = 'calc(16.6% + 20px)';
         }else{
-            accMenu.style.height = 0;
-            content.style.left = '30px';
+            accMenu.style.visibility = 'hidden';
+            accMenu.style.display = 'none';
+            content.style.left = '20px';
         }
     };
 
@@ -335,6 +337,41 @@ jetbrains.controller('AppCtrl', function ($http) {
         entry.style.height = '40px';
         entry.style.background = 'black';
         entry.innerHTML = desc;
+    };
+
+    app.showLogin = function () {
+        document.getElementById('login').style.visibility = 'visible';
+        document.getElementById('login').style.opacity = 1;
+        document.getElementById('loginButton').style.visibility = 'hidden';
+        document.getElementById('loginButton').style.opacity = 0;
+        document.getElementById('registerButton').style.visibility = 'hidden';
+        document.getElementById('registerButton').style.opacity = 0;
+    };
+
+    app.showRegister = function () {
+        document.getElementById('register').style.visibility = 'visible';
+        document.getElementById('register').style.opacity = 1;
+        document.getElementById('loginButton').style.visibility = 'hidden';
+        document.getElementById('loginButton').style.opacity = 0;
+        document.getElementById('registerButton').style.visibility = 'hidden';
+        document.getElementById('registerButton').style.opacity = 0;
+    };
+
+    app.closeRegisterLogin = function () {
+        document.getElementById('loginButton').style.visibility = 'visible';
+        document.getElementById('loginButton').style.opacity = 1;
+        document.getElementById('registerButton').style.visibility = 'visible';
+        document.getElementById('registerButton').style.opacity = 1;
+        document.getElementById('register').style.visibility = 'hidden';
+        document.getElementById('register').style.opacity = 0;
+        document.getElementById('login').style.visibility = 'hidden';
+        document.getElementById('login').style.opacity = 0;
+        app.password = '';
+        app.passwordR = '';
+        app.username = '';
+        app.usernameR = '';
+        app.email = '';
+        app.name = '';
     };
     function getSomeDate(t){
         return new Date(startPicker.getDate().getTime()+ t*(24 * 60 * 60 * 1000));
