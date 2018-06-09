@@ -90,7 +90,6 @@ app.post('/', function (req,res){
     });
 });
 
-
 app.post('/add', function (req, res) {
     var entry = new Entry({
         Title:req.body.title,
@@ -106,7 +105,6 @@ app.post('/add', function (req, res) {
     entry.save(function (err) {
         if(err){
             console.log(err);
-            console.log(req.body);
         }else {
             res.send();
         }
@@ -115,7 +113,8 @@ app.post('/add', function (req, res) {
 
 app.post('/delete', function (req, res) {
     var title = req.body.title;
-    var entry = Entry.find({name:name});
+    var startTime = req.body.startTime;
+    var entry = Entry.find({Title:title,StartTime:startTime});
     entry.remove(function (err) {
         if(err){
             console.log(err);

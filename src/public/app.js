@@ -13,7 +13,7 @@ jetbrains.controller('AppCtrl', function ($http) {
     var startPicker;
     var wD;
     var weekDates;
-
+    window.addEventListener('resize',checkForFlex);
     app.init = function () {
 
         startDay = document.getElementById('startDay');
@@ -199,6 +199,26 @@ jetbrains.controller('AppCtrl', function ($http) {
 
     }
 
+    function checkForFlex(){
+        var height = window.screen.height;
+        var width = window.screen.width;
+        var wHeight = window.innerHeight;
+        var wWidth = window.innerWidth;
+        var resoSwitch = true;
+        if(resoSwitch === false) {
+            if ((height > (1.5 * width)) || (wHeight > (1.5 * wWidth))){
+                app.flexUp(0);
+                resoSwitch = true;
+            }
+        }else{
+            if ((height < (1.5 * width)) || (wHeight < (1.5 * wWidth))){
+                console.log('lel');
+                app.flexUp(0);
+                resoSwitch = false;
+            }
+        }
+    }
+
     app.showMenu = function () {
         var menu = document.getElementById('menu');
         var content = document.getElementById('content');
@@ -226,16 +246,16 @@ jetbrains.controller('AppCtrl', function ($http) {
     };
 
     app.registerUser = function(name, username, email, password){
-        $http({method: 'POST', url: url+'/users/register', data:{name: name, username: username, email: email,password: password }}).then( function success (res) {
-            console.log(res);
+        $http({method: 'POST', url: url+'/users/register', data:{name: name, username: username, email: email,password: password }}).then( function  () {
+            console.log('KK');
         }, function error(err){
             console.log(err);
         });
     };
 
     app.loginUser = function(username, password){
-        $http({method: 'POST', url: url+'/users/authenticate', data:{username: username, password: password }}).then( function success (res) {
-            console.log(res);
+        $http({method: 'POST', url: url+'/users/authenticate', data:{username: username, password: password }}).then( function () {
+            console.log('KK');
         }, function error(err){
             console.log(err);
         });
@@ -310,18 +330,18 @@ jetbrains.controller('AppCtrl', function ($http) {
         container.style.opacity = 0;
     };
 
-    app.saveProduct = function (newProduct) {
-        $http({method: 'POST', url: url+'/add', data:{name:newProduct}}).then( function () {
+    app.deleteEntry = function (delTitle,delTime) {
+        console.log('lel');
+        $http({method: 'POST', url: url+'/delete', data:{title:delTitle,startTime:delTime}}).then( function () {
             loadEntry();
         });
     };
-
-    app.deleteProduct = function (delProduct) {
-        $http({method: 'POST', url: url+'/delete', data:{name:delProduct}}).then( function () {
-            loadEntry();
-        });
+    app.showDesc = function (desc, title, startTime) {
+        var entry = document.getElementById(startTime+title);
+        entry.style.height = '40px';
+        entry.style.background = 'black';
+        entry.innerHTML = desc;
     };
-
     function getSomeDate(t){
         return new Date(startPicker.getDate().getTime()+ t*(24 * 60 * 60 * 1000));
     }

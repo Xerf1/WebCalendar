@@ -45,77 +45,119 @@
         <div class="date" id="date1"></div>
         <div class="entryContainer">
             <button class="addEntry" ng-click="app.showAddEntryContainer(1)">+</button>
-            <ul class="entryList">
-                <li ng-repeat="entry in app.entries1">
-                    {{entry.Title}}
-                </li>
-            </ul>
+            <div style="height: 50px"></div>
+            <div class="entryList">
+                <div ng-repeat="entry in app.entries1 | orderBy:'StartTime'">
+                    <div class="entryDiv" >
+                        <div class="entryDeleteDiv material-icons" ng-click="app.deleteEntry(entry.Title,entry.StartTime)">done_outline</div>
+                        <div class="entryTimeDiv">{{entry.StartTime}} - {{entry.EndTime}}</div>
+                        <div class="entryTitleDiv">{{entry.Title}}</div>
+                    </div>
+                    <textarea class="entryDesc">{{entry.Description}}</textarea>
+                </div>
+            </div>
         </div>
     </div>
     <div class="day" id="day2" style="flex: 1" ng-click="app.flexUp('2')">
         <div class="date" id="date2"></div>
         <div class="entryContainer">
             <button class="addEntry" ng-click="app.showAddEntryContainer(2)">+</button>
-            <ul class="entryList">
-                <li ng-repeat="entry in app.entries2">
-                    {{entry.Title}}
-                </li>
-            </ul>
+            <div style="height: 50px"></div>
+            <div class="entryList">
+                <div ng-repeat="entry in app.entries2 | orderBy:'StartTime'">
+                    <div class="entryDiv" >
+                        <div class="entryDeleteDiv material-icons" ng-click="app.deleteEntry(entry.Title,entry.StartTime)">done_outline</div>
+                        <div class="entryTimeDiv">{{entry.StartTime}} - {{entry.EndTime}}</div>
+                        <div class="entryTitleDiv">{{entry.Title}}</div>
+                    </div>
+                    <textarea class="entryDesc">{{entry.Description}}</textarea>
+                </div>
+            </div>
         </div>
     </div>
     <div class="day" id="day3" style="flex: 1" ng-click="app.flexUp('3')">
         <div class="date" id="date3"></div>
         <div class="entryContainer">
             <button class="addEntry" ng-click="app.showAddEntryContainer(3)">+</button>
-            <ul class="entryList">
-                <li ng-repeat="entry in app.entries3">
-                    {{entry.Title}}
-                </li>
-            </ul>
+            <div style="height: 50px"></div>
+            <div class="entryList">
+                <div ng-repeat="entry in app.entries3 | orderBy:'StartTime'">
+                    <div class="entryDiv" >
+                        <div class="entryDeleteDiv material-icons" ng-click="app.deleteEntry(entry.Title,entry.StartTime)">done_outline</div>
+                        <div class="entryTimeDiv">{{entry.StartTime}} - {{entry.EndTime}}</div>
+                        <div class="entryTitleDiv">{{entry.Title}}</div>
+                    </div>
+                    <textarea class="entryDesc">{{entry.Description}}</textarea>
+                </div>
+            </div>
         </div>
     </div>
     <div class="day" id="day4" style="flex: 1" ng-click="app.flexUp('4')">
         <div class="date" id="date4"></div>
         <div class="entryContainer">
             <button class="addEntry" ng-click="app.showAddEntryContainer(4)">+</button>
-            <ul class="entryList">
-                <li ng-repeat="entry in app.entries4">
-                    {{entry.Title}}
-                </li>
-            </ul>
+            <div style="height: 50px"></div>
+            <div class="entryList">
+                <div ng-repeat="entry in app.entries4 | orderBy:'StartTime'">
+                    <div class="entryDiv" >
+                        <div class="entryDeleteDiv material-icons" ng-click="app.deleteEntry(entry.Title,entry.StartTime)">done_outline</div>
+                        <div class="entryTimeDiv">{{entry.StartTime}} - {{entry.EndTime}}</div>
+                        <div class="entryTitleDiv">{{entry.Title}}</div>
+                    </div>
+                    <textarea class="entryDesc">{{entry.Description}}</textarea>
+                </div>
+            </div>
         </div>
     </div>
     <div class="day" id="day5" style="flex: 1" ng-click="app.flexUp('5')">
         <div class="date" id="date5"></div>
         <div class="entryContainer">
             <button class="addEntry" ng-click="app.showAddEntryContainer(5)">+</button>
-            <ul class="entryList">
-                <li ng-repeat="entry in app.entries5">
-                    {{entry.Title}}
-                </li>
-            </ul>
+            <div style="height: 50px"></div>
+            <div class="entryList">
+                <div ng-repeat="entry in app.entries5 | orderBy:'StartTime'">
+                    <div class="entryDiv" >
+                        <div class="entryDeleteDiv material-icons" ng-click="app.deleteEntry(entry.Title,entry.StartTime)">done_outline</div>
+                        <div class="entryTimeDiv">{{entry.StartTime}} - {{entry.EndTime}}</div>
+                        <div class="entryTitleDiv">{{entry.Title}}</div>
+                    </div>
+                    <textarea class="entryDesc">{{entry.Description}}</textarea>
+                </div>
+            </div>
         </div>
     </div>
     <div class="day" id="day6" style="flex: 1" ng-click="app.flexUp('6')">
         <div class="date" id="date6"></div>
         <div class="entryContainer">
             <button class="addEntry" ng-click="app.showAddEntryContainer(6)">+</button>
-            <ul class="entryList">
-                <li ng-repeat="entry in app.entries6">
-                    {{entry.Title}}
-                </li>
-            </ul>
+            <div style="height: 50px"></div>
+            <div class="entryList">
+                <div ng-repeat="entry in app.entries6 | orderBy:'StartTime'">
+                    <div class="entryDiv" >
+                        <div class="entryDeleteDiv material-icons" ng-click="app.deleteEntry(entry.Title,entry.StartTime)">done_outline</div>
+                        <div class="entryTimeDiv">{{entry.StartTime}} - {{entry.EndTime}}</div>
+                        <div class="entryTitleDiv">{{entry.Title}}</div>
+                    </div>
+                    <textarea class="entryDesc">{{entry.Description}}</textarea>
+                </div>
+            </div>
         </div>
     </div>
     <div class="day" id="day7" style="flex: 1" ng-click="app.flexUp('7')">
         <div class="date" id="date7"></div>
         <div class="entryContainer">
             <button class="addEntry" ng-click="app.showAddEntryContainer(7)">+</button>
-            <ul class="entryList">
-                <li ng-repeat="entry in app.entries7">
-                    {{entry.Title}}
-                </li>
-            </ul>
+            <div style="height: 50px"></div>
+            <div class="entryList">
+                <div ng-repeat="entry in app.entries7 | orderBy:'StartTime'">
+                    <div class="entryDiv" >
+                        <div class="entryDeleteDiv material-icons" ng-click="app.deleteEntry(entry.Title,entry.StartTime)">done_outline</div>
+                        <div class="entryTimeDiv">{{entry.StartTime}} - {{entry.EndTime}}</div>
+                        <div class="entryTitleDiv">{{entry.Title}}</div>
+                    </div>
+                    <textarea class="entryDesc">{{entry.Description}}</textarea>
+                </div>
+            </div>
         </div>
     </div>
 

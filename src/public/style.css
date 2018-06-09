@@ -51,6 +51,60 @@
     align-items: center;
 }
 
+
+.entryList{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.entryDiv{
+    position: static;
+    margin: 10px;
+    padding: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+    color: #67757f ;
+    border-bottom:solid #67757f 2px;
+}
+.entryDeleteDiv{
+     position: absolute;
+     right: 10px;
+     color: #67757f;
+}
+
+.entryDeleteDiv:hover{
+    color: #9eb4c3;
+}
+.entryDescDiv{
+    position: absolute;
+    right: 40px;
+    color: #67757f;
+}
+
+.entryDescDiv:hover{
+    color: #9eb4c3;
+}
+.entryTimeDiv{
+    position: absolute;
+    left:10px;
+}
+.entryTitleDiv{
+    display: inline-block;
+    position: relative;
+    width: auto;
+    left:50%;
+}
+.entryDesc{
+    resize: none;
+    position: relative;
+    left:10px;
+    width: calc(100% - 20px);
+    border: 0;
+    background: transparent;
+    font-size: 14px;
+    font-family: 'Josefin Sans', sans-serif;
+}
 #upperLeftButton{
 
     position: fixed;
@@ -107,7 +161,6 @@
     /*font-family: 'Dawning of a New Day', cursive;*/
     /*font-weight: bolder;*/
 }
-
 @media screen and (min-width: 901px) {
     .date {
         font-size: 30px;
@@ -250,6 +303,7 @@
 }
 
 .entryContainer{
+
     position: relative;
     width:100%;
     height: calc(100% - 50px);
@@ -259,7 +313,7 @@ button:focus {outline:0;}
 input:focus {outline:0;}
 textarea:focus {outline:0;}
 body{
-    min-width:600px;
+    min-width:1000px;
     background:#67757f;
     padding: 0;
     margin: 0;
