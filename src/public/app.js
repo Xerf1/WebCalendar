@@ -5,10 +5,10 @@ var jetbrains = angular.module('jetbrains', []);
 var weekday = ['Sunday', 'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday', 'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 var months = ['January','Febuary','March','April','May','June','July','August','September','October','November','December'];
 var Picker = window.Picker;
-jetbrains.controller('AppCtrl', function ($http) {
 
+jetbrains.controller('AppCtrl', function ($http) {
+    var resoSwitch;
     var userName;
-    var userID;
     var app = this;
     var url ='http://localhost:3000';
     var currentDate = new Date();
@@ -53,7 +53,7 @@ jetbrains.controller('AppCtrl', function ($http) {
     };
 
     app.flexUp = function (id) {
-        renderEntries(id);
+        loadEntry();
         wD = startPicker.getDate().getDay()-1;
         if(wD < 0){wD = 6;}
         weekDates = [getSomeDate(-wD),getSomeDate(-wD+1),getSomeDate(-wD+2),getSomeDate(-wD+3),getSomeDate(-wD+4),getSomeDate(-wD+5),getSomeDate(-wD+6)];
@@ -204,18 +204,13 @@ jetbrains.controller('AppCtrl', function ($http) {
 
     }
 
-    function renderEntries(id) {
-        loadEntry();
-
-    }
-
     function checkForFlex(){
         var height = window.screen.height;
         var width = window.screen.width;
         var wHeight = window.innerHeight;
         var wWidth = window.innerWidth;
 
-        var resoSwitch = true;
+        resoSwitch = true;
         if(resoSwitch === false) {
             if ((height > (1.5 * width)) || (wHeight > (1.5 * wWidth))){
                 app.flexUp(0);
@@ -298,16 +293,14 @@ jetbrains.controller('AppCtrl', function ($http) {
                 method: 'POST',
                 url: url + '/users/register',
                 data: {name: name, username: username, email: email, password: password}
-            }).then(function success(res) {
-                console.log(res);
-            }, function error(err) {
-                console.log(err);
+            }).then(function success() {
+            }, function error() {
             });
         }
     };
 
     app.loginUser = function(username, password){
-        if(username === undefined || password == undefined){
+        if(username === undefined || password === undefined){
             if (username === undefined) {
                 app.username = '';
                 document.getElementById('username').style.backgroundColor = 'red';
@@ -324,7 +317,6 @@ jetbrains.controller('AppCtrl', function ($http) {
                 url: url + '/users/authenticate',
                 data: {username: username, password: password}
             }).then(function success(res) {
-                console.log(res.data);
                 if(res.data.success === true){
 
                     app.username = '';
@@ -336,7 +328,6 @@ jetbrains.controller('AppCtrl', function ($http) {
                     userName = username;
                     document.getElementById('upperLeftButton').innerHTML = username;
                     loggedIn();
-                    console.log('success');
                 }else{
                     if(res.data.r === 0){
                         app.username = '';
@@ -351,8 +342,7 @@ jetbrains.controller('AppCtrl', function ($http) {
                         document.getElementById('password').style.color = 'black';
                     }
                 }
-            }, function error(err) {
-                console.log(err);
+            }, function error() {
             });
         }
     };
@@ -444,7 +434,6 @@ jetbrains.controller('AppCtrl', function ($http) {
     };
 
     app.deleteEntry = function (delTitle,delTime) {
-        console.log('lel');
         $http({method: 'POST', url: url+'/delete', data:{title:delTitle,startTime:delTime,userName:userName}}).then( function () {
             loadEntry();
         });
